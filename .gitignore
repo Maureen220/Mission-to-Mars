@@ -127,3 +127,7 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+#practice files 
+books_to_scrape.ipynb
+Practice.ipynb
