@@ -50,13 +50,15 @@
       </div>
       <!-- Add section for Mars Hemispheres -->
       <div class="row" id="mars-hemispheres">
-        <div class="col-md-12">
-          <h4>Mars Hemispheres Photographs</h4>
+        <div class="col-md-6">
+          <h2>Mars Hemispheres Photographs</h2>
           {% for hemisphere in mars.hemisphere_images %}
-            <div class = "col-md=6">
+            <div class = "col-md=3">
               <div class = "thumbnail">
                 <img src = "{{hemisphere.img_url}}">
-                  <h5>{{hemisphere.titles}}</h5>
+                  <div class = "caption">
+                    <h4>{{hemisphere.title}}</h4>
+                  </div>
               </div>
             </div>
           {% endfor %}
