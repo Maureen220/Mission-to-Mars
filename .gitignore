@@ -80,6 +80,7 @@ target/
 # IPython
 profile_default/
 ipython_config.py
+Mission_to_Mars_Challenge.py
 
 # pyenv
 .python-version
