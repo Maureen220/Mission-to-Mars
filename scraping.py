@@ -12,6 +12,7 @@ def scrape_all():
     browser = Browser('chrome', **executable_path, headless=True)
 
     news_title, news_paragraph = mars_news(browser)
+    hemisphere_images = mars_hemispheres(browser)
 
     # Run all scraping functions and store results in a dictionary
     data = {
@@ -19,6 +20,7 @@ def scrape_all():
         "news_paragraph": news_paragraph,
         "featured_image": featured_image(browser),
         "facts": mars_facts(),
+        "hemisphere_images": hemisphere_images,
         "last_modified": dt.datetime.now()
     }
 
@@ -101,3 +103,51 @@ if __name__ == "__main__":
 
     # If running as script, print scraped data
     print(scrape_all())
+    
+# # D1: Scrape High-Resolution Mars’ Hemisphere Images and Titles
+
+# ### Hemispheres
+def mars_hemispheres(browser):
+# 1. Use browser to visit the URL 
+    hemi_url = 'https://astrogeology.usgs.gov/search/results?q=hemisphere+enhanced&k1=target&v1=Mars'
+
+    browser.visit(hemi_url)
+
+# # 2. Create a list to hold the images and titles.
+    hemisphere_image_urls = []
+
+# # 3. Write code to retrieve the image urls and titles for each hemisphere.
+#loop through the 4 links...
+    for x in range(1):
+    
+        hemi_html = browser.html
+        hemi_soup = soup(hemi_html, 'html.parser')
+    
+        results = hemi_soup.find_all('div', class_='item')
+    
+    for result in results: 
+
+        hemi_title = result.find('h3').text
+        
+        #Click on the link and find image. Need soup to run through that link.
+        hemi_link = result.a['href']
+        hemi_img_url = f'https://astrogeology.usgs.gov/{hemi_link}'
+        browser.visit(hemi_img_url)
+        hemi_html = browser.html
+        hemi_soup = soup(hemi_html, 'html.parser')
+        
+        full_img = hemi_soup.find('div', class_='downloads')
+        full_img_link = full_img.a['href']
+        
+        
+        #Create the disctionary
+        hemispheres = {'img_url': full_img_link, 'title': hemi_title}
+        
+        browser.back()
+        
+        hemisphere_image_urls.append(hemispheres)
+
+    return hemisphere_image_urls
+
+# 5. Quit the browser
+    #browser.quit()
